@@ -3,9 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EmployerRepository")
+ * @UniqueEntity("matricule", message="Cette matricule  existe déjà")
+
  */
 class Employer
 {
@@ -18,6 +22,8 @@ class Employer
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez resnseigner ce champ")
+
      */
     private $matricule;
 
@@ -28,11 +34,15 @@ class Employer
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Date()
+          *@Assert\LessThan("-18 years", message="Vous avez moins de 18 ans")
      */
     private $dateNaiss;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Positive
+     * @Assert\GreaterThan(10000, message="Un salaire doit etre superieur a 10000")
      */
     private $salaire;
 
