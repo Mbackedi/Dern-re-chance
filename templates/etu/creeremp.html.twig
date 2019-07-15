@@ -1,0 +1,80 @@
+{% extends "base.html.twig" %}
+{% form_theme formEmployer 'bootstrap_4_layout.html.twig' %}
+
+  {% block body %}
+
+<h1>Création d'un employer</h1>
+{{ form_start(formEmployer)}}
+
+
+{{ form_widget(formEmployer)}}
+<button type="submit" class="btn btn-success">
+
+    {% if modiff %}
+    MODIFIER
+    {% else %}
+    AJOUTER
+    {% endif %}
+
+</button>
+{{ form_end(formEmployer)}}
+
+  <br>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID EMPLOYE</th>
+            <th scope="col">MATRICULE</th>
+            <th scope="col">NOM COMPLET</th>
+            <th scope="col">DAET NAISS</th>
+            <th scope="col">SALAIRE</th>
+            <th scope="col">SERVICE</th>
+            <th scope="col">MODIFIER</th>
+            <th scope="col">SUPPRIMER</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employer in emp %}
+            
+        
+       
+        <tr class="table-info">
+            <th scope="row">{{employer.id}}</th>
+            <th scope="row">{{employer.matricule}}</th>
+            <th scope="row">{{employer.nomcomplet}}</th>
+            <th scope="row">{{employer.datenaiss | date('d/m/Y')}}</th>
+            <th scope="row">{{employer.salaire}}</th>
+            <th scope="row">{{employer.service.libelle}}</th>
+            <td>
+            <button class="btn btn-light">
+            
+                <a href="/etu/{{employer.id}}/modemp">MODIFIER</a>
+            
+            </button>
+                
+            </td>
+
+            <td>
+                <button class="btn btn-danger" onclick="supp({{employer.id}})">SUPPRIMER</button>
+            </td>
+            
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    function supp(id) {
+        if (confirm("Etes-vous sure de vouloir supprimer ?")) {
+            document.location.href = "/etu/" + id + "/suppemp";
+        }
+    }
+</script>
+
+{% endblock %}

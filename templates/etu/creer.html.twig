@@ -1,0 +1,74 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<h1>Création d'un service</h1>
+
+{{ form_start(formService)}}
+
+
+
+{{ form_widget(formService)}}
+<button type="submit" class="btn btn-success">
+
+    {% if mod %}
+        MODIFIER
+    {% else %}
+        AJOUTER
+    {% endif %}
+
+</button>
+
+
+{{ form_end(formService)}}
+
+<br>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID SERVICE</th>
+            <th scope="col"> LIBELLE</th>
+            <th scope="col">MODIFIER</th>
+            <th scope="col">SUPPRIMER</th>
+        </tr>
+    </thead>
+    <tbody>
+     {% for service in serv %}
+       
+    
+        <tr class="table-info">
+            <th scope="row">{{service.id}}</th>
+            <th scope="row">{{service.libelle}}</th>
+            <td>
+            <button class="btn btn-light">
+
+            <a href="/etu/{{service.id}}/modserv">MODIFIER</a>
+
+            </button>
+            </td>
+            <td>
+                    <button class="btn btn-danger" onclick="supp({{service.id}})">SUPPRIMER</button>
+            </td>
+            
+        </tr>
+   
+     {% endfor %} 
+    </tbody>
+</table>
+
+{% endblock %}
+
+        {% block javascripts %}
+        
+        <script>
+          function supp(id){
+              if(confirm("Etes-vous sure de vouloir supprimer ?")){
+                  document.location.href="/etu/"+id+"/supprime";
+              }
+          }
+        
+        
+        </script>
+        
+        {% endblock %}
