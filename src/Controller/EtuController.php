@@ -16,8 +16,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 class EtuController extends AbstractController
 {
     /**
-     * @Route("/etu", name="etu")
-     */
+     * @Route("/etu", name="etu")  */
+   
     public function index()
     {
         return $this->render('etu/index.html.twig', [
